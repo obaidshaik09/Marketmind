@@ -6,25 +6,19 @@ import TypingIndicator from '../components/TypingIndicator';
 import ChipsRow from '../components/ChipsRow';
 import ChatInput from '../components/ChatInput';
 import ApiKeySetup from '../components/ApiKeySetup';
-import SecurityBanner from '../components/SecurityBanner';
-import { TOPIC_CHIPS, WELCOME_MESSAGE } from '../data/topics';
+import WelcomePanel from '../components/WelcomePanel';
+import { TOPIC_CHIPS } from '../data/topics';
 import { sendChatMessage } from '../services/chatApi';
 
 function ChatbotPage() {
-  // The API key lives only in this component's state — in memory, for
-  // this browser tab, for this session. It is never written to disk and
-  // disappears on refresh or tab close.
   const [apiKey, setApiKey] = useState(null);
-
   const [currentTopic, setCurrentTopic] = useState('general');
-  const [messages, setMessages] = useState([
-    { role: 'assistant', content: WELCOME_MESSAGE, steps: [] },
-  ]);
+  const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [busy, setBusy] = useState(false);
-  const [bannerDismissed, setBannerDismissed] = useState(false);
-
   const scrollRef = useRef(null);
+
+  const showWelcome = messages.length === 0;
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -35,7 +29,6 @@ function ChatbotPage() {
     if (busy) return;
     const text = (overrideText ?? inputValue).trim();
     if (!text) return;
-
     setInputValue('');
 
     const updatedHistory = [...messages, { role: 'user', content: text }];
@@ -48,23 +41,11 @@ function ChatbotPage() {
     } catch (err) {
       setMessages((prev) => [
         ...prev,
-        {
-          role: 'assistant',
-          content: `⚠️ Sorry, I ran into an issue: ${err.message}`,
-          steps: [],
-        },
+        { role: 'assistant', content: `Sorry, I ran into an issue: ${err.message}`, steps: [] },
       ]);
     } finally {
       setBusy(false);
     }
-  }
-
-  function handleTopicSelect(topicId) {
-    setCurrentTopic(topicId);
-  }
-
-  function handleChipClick(chipText) {
-    handleSend(chipText);
   }
 
   if (!apiKey) {
@@ -73,16 +54,13 @@ function ChatbotPage() {
 
   return (
     <div id="chatbot-page">
-      <Sidebar activeTopic={currentTopic} onTopicSelect={handleTopicSelect} />
+      <Sidebar activeTopic={currentTopic} onTopicSelect={setCurrentTopic} />
 
       <div id="main">
         <ChatHeader />
 
-        {!bannerDismissed && (
-          <SecurityBanner onDismiss={() => setBannerDismissed(true)} />
-        )}
-
         <div id="chat-scroll" ref={scrollRef}>
+          {showWelcome && <WelcomePanel />}
           {messages.map((msg, idx) => (
             <MessageBubble key={idx} role={msg.role} text={msg.content} steps={msg.steps} />
           ))}
@@ -91,7 +69,7 @@ function ChatbotPage() {
 
         <ChipsRow
           chips={TOPIC_CHIPS[currentTopic] || TOPIC_CHIPS.general}
-          onChipClick={handleChipClick}
+          onChipClick={handleSend}
         />
 
         <ChatInput

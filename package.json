@@ -2,7 +2,7 @@
   "name": "marketmind-react",
   "version": "1.0.0",
   "private": true,
-  "description": "MarketMind — AI Marketing Agent (React app, calls Claude directly from the browser)",
+  "description": "MarketMind — AI career coaching agent for US job seekers",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -11,6 +11,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "server": "node server/index.js",
+    "server:install": "npm install --prefix server",
+    "postinstall": "npm install --prefix server",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

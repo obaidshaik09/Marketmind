@@ -6,15 +6,16 @@ function SetupBanner({ webSearchConfigured, onDismiss }) {
       <button type="button" className="setup-banner-close" onClick={onDismiss} aria-label="Dismiss">
         ×
       </button>
-      <div className="setup-banner-title">Setup needed:</div>
+      <div className="setup-banner-title">Optional setup for web search:</div>
       <ul className="setup-banner-list">
         <li>
-          Add <code>SERPAPI_API_KEY</code> to <code>server/.env</code> for web search (free
-          tier at serpapi.com).
+          Add <code>REACT_APP_SERPAPI_API_KEY</code> to <code>.env</code> to enable
+          live salary and job market searches (free tier at serpapi.com).
         </li>
       </ul>
       <div className="setup-banner-footer">
-        Edit <code>server/.env</code>, then restart with <code>npm run dev</code>.
+        Copy <code>.env.example</code> to <code>.env</code>, add your key, then restart with{' '}
+        <code>npm start</code>.
       </div>
     </div>
   );

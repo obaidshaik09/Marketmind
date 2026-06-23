@@ -1,9 +1,9 @@
 {
   "short_name": "MarketMind",
-  "name": "MarketMind — AI Marketing Profile Assistant",
+  "name": "MarketMind — US Career Coaching",
   "icons": [],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#0f1b3d",
-  "background_color": "#f0f4ff"
+  "theme_color": "#070b14",
+  "background_color": "#070b14"
 }

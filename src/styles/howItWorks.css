@@ -51,7 +51,7 @@
 .hiw-step {
   display: flex;
   gap: 18px;
-  background: #ffffff;
+  background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 20px 22px;
@@ -87,7 +87,7 @@
 }
 
 .hiw-section {
-  background: #ffffff;
+  background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 24px 26px;

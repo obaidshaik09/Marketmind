@@ -167,6 +167,21 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
+// Proxy endpoints — browser calls these for web_search & fetch_url (avoids CORS)
+app.post('/api/tools/web-search', async (req, res) => {
+  const { query } = req.body;
+  if (!query) return res.status(400).json({ error: 'query required' });
+  const result = await runTool('web_search', { query });
+  res.json({ result });
+});
+
+app.post('/api/tools/fetch-url', async (req, res) => {
+  const { url } = req.body;
+  if (!url) return res.status(400).json({ error: 'url required' });
+  const result = await runTool('fetch_url', { url });
+  res.json({ result });
+});
+
 app.listen(PORT, () => {
   console.log(`MarketMind agent server running on http://localhost:${PORT}`);
   if (!API_KEY) {

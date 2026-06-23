@@ -29,7 +29,7 @@ function ChatInput({ value, onChange, onSend, busy, currentTopic }) {
         <textarea
           id="user-input"
           ref={textareaRef}
-          placeholder="Ask about marketing profiles, campaigns, strategy…"
+          placeholder="Ask about resumes, interviews, LinkedIn, job search…"
           rows={1}
           value={value}
           onChange={handleInput}

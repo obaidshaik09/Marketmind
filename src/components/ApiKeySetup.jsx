@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { validateApiKey } from '../services/chatApi';
+import { FEATURES, AUDIENCES } from '../data/topics';
 
 function ApiKeySetup({ onKeySubmit }) {
   const [keyInput, setKeyInput] = useState('');
@@ -9,75 +11,107 @@ function ApiKeySetup({ onKeySubmit }) {
   async function handleSubmit(e) {
     e.preventDefault();
     const trimmed = keyInput.trim();
-
-    if (!trimmed) {
-      setError('Please paste your Anthropic API key to continue.');
-      return;
-    }
+    if (!trimmed) { setError('Please paste your Anthropic API key.'); return; }
     if (!trimmed.startsWith('sk-ant-')) {
-      setError('That doesn\u2019t look like an Anthropic key — it should start with "sk-ant-".');
+      setError('Key should start with "sk-ant-".');
       return;
     }
-
     setChecking(true);
     setError('');
-
     const result = await validateApiKey(trimmed);
     setChecking(false);
-
     if (!result.valid) {
-      setError(result.message || 'Could not validate this key. Please check it and try again.');
+      setError(result.message || 'Invalid API key.');
       return;
     }
-
     onKeySubmit(trimmed);
   }
 
   return (
-    <div id="setup-overlay">
-      <div className="setup-card">
-        <div className="setup-logo">
-          <div className="icon">📊</div>
-          <div className="name">MarketMind</div>
+    <div className="landing-page">
+      <div className="landing-grid-bg" aria-hidden="true" />
+      <div className="landing-glow landing-glow-1" aria-hidden="true" />
+      <div className="landing-glow landing-glow-2" aria-hidden="true" />
+
+      <div className="landing-inner">
+        <div className="landing-left">
+          <div className="landing-brand">
+            <div className="landing-logo">
+              <span className="landing-logo-icon">MM</span>
+            </div>
+            <div>
+              <div className="landing-brand-name">MarketMind</div>
+              <div className="landing-brand-tag">US Career Coaching · AI Agent</div>
+            </div>
+          </div>
+
+          <h1 className="landing-headline">
+            Find your US job.<br />
+            <span className="landing-gradient-text">Build. Practice. Land.</span>
+          </h1>
+
+          <p className="landing-desc">
+            Resume builder from scratch, job portal help, LinkedIn coaching,
+            interview prep, skill-up quizzes, and live web research —
+            powered by Claude with tool calling.
+          </p>
+
+          <div className="landing-audiences">
+            {AUDIENCES.map((a) => (
+              <span className="landing-audience" key={a}>{a}</span>
+            ))}
+          </div>
+
+          <div className="landing-feature-grid">
+            {FEATURES.slice(0, 6).map((f) => (
+              <div className="landing-feature" key={f.title}>
+                <span>{f.icon}</span>
+                <div>
+                  <strong>{f.title}</strong>
+                  <span>{f.desc}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <Link to="/how-it-works" className="landing-learn-more">
+            How it works →
+          </Link>
         </div>
-        <h2>Enter your API key to start</h2>
-        <p>
-          MarketMind talks to Claude directly from your browser for this
-          session — there&rsquo;s no backend server involved. Your key is
-          kept only in memory and is never saved to disk or sent anywhere
-          except Anthropic&rsquo;s API.
-        </p>
 
-        <div className="caps">
-          <span className="cap">Audience profiles</span>
-          <span className="cap">Campaigns</span>
-          <span className="cap">Branding</span>
-          <span className="cap">Analytics</span>
-          <span className="cap">Tool calling</span>
+        <div className="landing-right">
+          <div className="landing-card">
+            <div className="landing-card-header">
+              <span className="landing-status-dot" />
+              <span>Connect to Claude</span>
+            </div>
+            <h2>Launch MarketMind</h2>
+            <p>Paste your Anthropic API key. Stored in memory only for this session.</p>
+
+            <form onSubmit={handleSubmit}>
+              <label className="landing-label" htmlFor="api-key">Anthropic API Key</label>
+              <input
+                id="api-key"
+                type="password"
+                value={keyInput}
+                onChange={(e) => setKeyInput(e.target.value)}
+                placeholder="sk-ant-api03-..."
+                className="landing-input"
+                autoComplete="off"
+                spellCheck="false"
+              />
+              {error && <div className="landing-error">{error}</div>}
+              <button className="landing-submit" type="submit" disabled={checking}>
+                {checking ? 'Validating…' : 'Enter Career Coach →'}
+              </button>
+            </form>
+
+            <p className="landing-footnote">
+              For web search &amp; URL fetch, also run <code>npm run server</code> with{' '}
+              <code>SERPAPI_API_KEY</code> in <code>server/.env</code>
+            </p>
+          </div>
         </div>
-
-        <form onSubmit={handleSubmit}>
-          <input
-            type="password"
-            value={keyInput}
-            onChange={(e) => setKeyInput(e.target.value)}
-            placeholder="sk-ant-..."
-            className="setup-key-input"
-            autoComplete="off"
-            spellCheck="false"
-          />
-          <div id="err-msg">{error}</div>
-          <button id="retry-btn" type="submit" disabled={checking}>
-            {checking ? 'Checking…' : 'Start Chatting →'}
-          </button>
-        </form>
-
-        <p className="setup-disclaimer">
-          Don&rsquo;t have a key? Get one at{' '}
-          <code>console.anthropic.com</code>. Your key disappears when you
-          close or refresh this tab — you&rsquo;ll need to re-enter it next
-          time.
-        </p>
       </div>
     </div>
   );

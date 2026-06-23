@@ -3,7 +3,7 @@ function ServerErrorOverlay({ message, onRetry }) {
     <div id="setup-overlay">
       <div className="setup-card">
         <div className="setup-logo">
-          <div className="icon">📊</div>
+          <div className="icon">🌉</div>
           <div className="name">MarketMind</div>
         </div>
         <h2>Can&rsquo;t reach the assistant</h2>

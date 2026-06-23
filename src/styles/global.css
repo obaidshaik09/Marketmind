@@ -1,20 +1,23 @@
 :root {
-  --bg-page: #f0f4ff;
-  --bg-sidebar: #0f1b3d;
-  --bg-chat: #ffffff;
-  --bg-input: #f7f8fc;
-  --accent: #2e5bff;
-  --accent-light: #e8edff;
-  --accent-dark: #1a3dbf;
-  --success: #00b67a;
-  --danger: #d0382a;
-  --text-dark: #0f1b3d;
-  --text-mid: #4a5578;
-  --text-light: #8f9bbf;
-  --border: #dde3f5;
-  --bot-bubble: #f0f4ff;
-  --user-bubble: #2e5bff;
-  --shadow: 0 4px 24px rgba(46, 91, 255, 0.1);
+  --bg-page: #070b14;
+  --bg-sidebar: #0a0f1c;
+  --bg-chat: #0d1220;
+  --bg-card: #111827;
+  --bg-input: #0f1628;
+  --accent: #06b6d4;
+  --accent-2: #8b5cf6;
+  --accent-light: rgba(6, 182, 212, 0.12);
+  --accent-dark: #0891b2;
+  --success: #10b981;
+  --danger: #ef4444;
+  --text-dark: #f1f5f9;
+  --text-mid: #94a3b8;
+  --text-light: #64748b;
+  --border: rgba(148, 163, 184, 0.15);
+  --bot-bubble: #131c2e;
+  --user-bubble: linear-gradient(135deg, #0891b2, #6366f1);
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --glow: 0 0 40px rgba(6, 182, 212, 0.15);
 }
 
 *,
@@ -45,8 +48,15 @@ button {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   box-shadow: var(--shadow);
   background: var(--bg-chat);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9em;
 }

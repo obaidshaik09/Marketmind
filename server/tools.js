@@ -17,7 +17,7 @@ const SERPAPI_KEY = process.env.SERPAPI_API_KEY;
 const webSearchDefinition = {
   name: 'web_search',
   description:
-    'Search the web for current information, such as recent marketing trends, statistics, news, or facts that may have changed since the assistant was trained. Use this when the user asks about something current or time-sensitive, or when you are not confident in your own knowledge.',
+    'Search the web for current salary data, job market trends, visa updates, or hiring news. Use for time-sensitive career information.',
   input_schema: {
     type: 'object',
     properties: {
@@ -101,7 +101,7 @@ function executeCalculator({ expression }) {
 const fetchUrlDefinition = {
   name: 'fetch_url',
   description:
-    'Fetch the visible text content of a public web page given its URL. Use this when the user shares a link and asks you to summarize, analyze, or answer questions about its content.',
+    'Fetch the visible text content of a public web page (job postings, career pages). Use when the user shares a URL to analyze.',
   input_schema: {
     type: 'object',
     properties: {

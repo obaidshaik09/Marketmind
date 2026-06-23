@@ -15,7 +15,7 @@ function SecurityBanner({ onDismiss }) {
       </ul>
       <div className="security-banner-footer">
         Don&rsquo;t use a key you wouldn&rsquo;t want exposed on a shared or
-        public computer. See the <code>How It Works</code> page for details.
+        public computer. See the How It Works page for details.
       </div>
     </div>
   );

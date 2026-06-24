@@ -1,15 +1,15 @@
 import { FEATURES, AUDIENCES } from '../data/topics';
+import StarterPrompts from './StarterPrompts';
 
-function WelcomePanel() {
+function WelcomePanel({ topicId, onPromptSelect }) {
   return (
     <div className="welcome-panel">
       <div className="welcome-hero">
         <div className="welcome-badge">MARKETMIND · AI AGENT · TOOL CALLING</div>
         <h2 className="welcome-title">Your US Career Command Center</h2>
         <p className="welcome-subtitle">
-          Build a resume from scratch, set up job profiles, prep for interviews,
-          skill-up with quizzes and tasks, and search live job market data —
-          for citizens, students, visa holders, and career changers.
+          Build resumes, attach files, prep for interviews, skill-up with quizzes,
+          and search live job market data — for every background and field.
         </p>
         <div className="welcome-audiences">
           {AUDIENCES.map((a) => (
@@ -30,9 +30,7 @@ function WelcomePanel() {
         ))}
       </div>
 
-      <p className="welcome-hint">
-        Pick a module from the sidebar or tap a suggestion below. For web search &amp; job URL fetch, run <code>npm run server</code> in a second terminal.
-      </p>
+      <StarterPrompts topicId={topicId} onSelect={onPromptSelect} />
     </div>
   );
 }

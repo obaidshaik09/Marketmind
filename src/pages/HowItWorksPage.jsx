@@ -2,25 +2,27 @@ import { useNavigate } from 'react-router-dom';
 import { TOPICS } from '../data/topics';
 
 const STEPS = [
+  { title: 'Paste your Anthropic key', body: 'Launch MarketMind and paste your API key once per session. It stays in memory only — never saved to disk.' },
   { title: 'Pick a career module', body: 'Use the sidebar to focus on resume, job portals, LinkedIn, interviews, vendor calls, visa basics, or skill building.' },
-  { title: 'Ask or tap a suggestion', body: 'Type your question or tap a chip. The AI agent decides if it needs tools before answering.' },
-  { title: 'Tools run automatically', body: 'Web search, URL fetch, resume analysis, quizzes, and calculations happen behind the scenes — you see badges above replies.' },
-  { title: 'Get actionable guidance', body: 'Structured advice for your US job search, grounded in live data and tool results.' },
+  { title: 'Ask or tap a starter card', body: 'Type your question, attach a resume file, or click a starter prompt on the welcome screen.' },
+  { title: 'Tools run in your browser', body: 'Web search, URL fetch, resume analysis, quizzes, and calculations run client-side. You see tool badges above replies.' },
 ];
 
 const AGENT_TOOLS = [
-  { icon: '🔍', name: 'web_search', body: 'Live salary data, job trends, visa news via SerpAPI.' },
-  { icon: '🌐', name: 'fetch_url', body: 'Analyze job posting URLs you share.' },
+  { icon: '🔍', name: 'web_search', body: 'Live salary data and job trends via SerpAPI (key in root .env).' },
+  { icon: '🌐', name: 'fetch_url', body: 'Fetch public URLs in the browser. Some job sites block this (CORS).' },
+  { icon: '📎', name: 'attachments', body: 'Upload .txt, .pdf, or .docx resumes for tailored feedback.' },
+  { icon: '📄', name: 'analyze_resume', body: 'ATS feedback on pasted or attached resume text.' },
+  { icon: '📝', name: 'build_resume', body: 'Build a US resume from scratch with guided questions.' },
+  { icon: '⚡', name: 'skill_up / skill_quiz', body: 'Learning plans, practice tasks, and graded quizzes.' },
   { icon: '🧮', name: 'calculator', body: 'Salary comparisons and offer math.' },
-  { icon: '📄', name: 'analyze_resume', body: 'ATS feedback on pasted resume text.' },
-  { icon: '📝', name: 'skill_quiz', body: 'Practice quizzes with grading and tasks.' },
 ];
 
 const DEMO_PROMPTS = [
+  { title: 'Attach resume', prompt: 'Review this resume and suggest improvements (attach .docx/.pdf/.txt)' },
   { title: 'Web search', prompt: 'What are entry-level data analyst salaries in Texas?' },
-  { title: 'Web fetch', prompt: 'Analyze this job posting URL and tell me how to tailor my resume.' },
-  { title: 'Multi-tool', prompt: "I'm on OPT targeting Java roles — search market advice and quiz me on 5 Java basics." },
-  { title: 'Resume + interview', prompt: 'Review my resume for ATS issues, then do a mock vendor screening call.' },
+  { title: 'Build resume', prompt: "Help me build a resume from scratch — I'm a CS new grad" },
+  { title: 'Skill quiz', prompt: 'Quiz me on 5 SQL basics' },
 ];
 
 function HowItWorksPage() {
@@ -31,11 +33,24 @@ function HowItWorksPage() {
       <div className="hiw-container">
         <div className="hiw-header">
           <div className="hiw-eyebrow">How It Works</div>
-          <h1>AI career coach with tool calling</h1>
+          <h1>Browser-only AI career coach</h1>
           <p>
-            MarketMind helps US citizens, students, visa holders, and career changers
-            find jobs across IT and non-IT fields — using web search, URL fetch, and
-            an agent loop that runs tools before answering.
+            MarketMind runs entirely in your browser — one command (<code>npm start</code>),
+            paste your Anthropic key, and optional SerpAPI key in <code>.env</code> for web search.
+            No backend server required for the demo.
+          </p>
+        </div>
+
+        <div className="hiw-section">
+          <h2>Setup</h2>
+          <ol className="hiw-setup-list">
+            <li><code>npm install</code></li>
+            <li>Copy <code>.env.example</code> to <code>.env</code> and add <code>REACT_APP_SERPAPI_API_KEY</code> (free at serpapi.com)</li>
+            <li><code>npm start</code> → paste Anthropic key at launch</li>
+          </ol>
+          <p className="hiw-note">
+            Web fetch may fail on some job posting URLs because browsers block cross-origin requests (CORS).
+            Web search works when SerpAPI is configured. The <code>server/</code> folder is kept for a future class topic but is not needed to run the app.
           </p>
         </div>
 

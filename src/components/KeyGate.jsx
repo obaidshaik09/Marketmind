@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { validateApiKey } from '../services/chatApi';
+import { validateApiKey } from '../agent/validateKey';
 import { FEATURES, AUDIENCES } from '../data/topics';
 
-function ApiKeySetup({ onKeySubmit }) {
+function KeyGate({ onKeySubmit }) {
   const [keyInput, setKeyInput] = useState('');
   const [checking, setChecking] = useState(false);
   const [error, setError] = useState('');
@@ -51,9 +51,8 @@ function ApiKeySetup({ onKeySubmit }) {
           </h1>
 
           <p className="landing-desc">
-            Resume builder from scratch, job portal help, LinkedIn coaching,
-            interview prep, skill-up quizzes, and live web research —
-            powered by Claude with tool calling.
+            Resume builder, file uploads, interview prep, skill quizzes, and live
+            web research — all in your browser with tool calling.
           </p>
 
           <div className="landing-audiences">
@@ -63,7 +62,7 @@ function ApiKeySetup({ onKeySubmit }) {
           </div>
 
           <div className="landing-feature-grid">
-            {FEATURES.slice(0, 6).map((f) => (
+            {FEATURES.map((f) => (
               <div className="landing-feature" key={f.title}>
                 <span>{f.icon}</span>
                 <div>
@@ -107,8 +106,7 @@ function ApiKeySetup({ onKeySubmit }) {
             </form>
 
             <p className="landing-footnote">
-              For web search &amp; URL fetch, also run <code>npm run server</code> with{' '}
-              <code>SERPAPI_API_KEY</code> in <code>server/.env</code>
+              Get a key at <code>console.anthropic.com</code>
             </p>
           </div>
         </div>
@@ -117,4 +115,4 @@ function ApiKeySetup({ onKeySubmit }) {
   );
 }
 
-export default ApiKeySetup;
+export default KeyGate;

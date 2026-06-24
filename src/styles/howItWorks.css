@@ -270,6 +270,41 @@
   border-bottom: none;
 }
 
+.hiw-header p code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9em;
+  color: var(--accent);
+}
+
+.hiw-setup-list {
+  margin: 0 0 16px 1.25rem;
+  color: var(--text-mid);
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+.hiw-setup-list code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9em;
+  color: var(--accent);
+}
+
+.hiw-note {
+  font-size: 13px;
+  color: var(--text-light);
+  line-height: 1.65;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.hiw-note code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9em;
+  color: var(--accent);
+}
+
 .hiw-cta {
   text-align: center;
   margin-top: 32px;

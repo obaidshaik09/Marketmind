@@ -21,14 +21,12 @@ export const TOPIC_LABELS = {
 };
 
 export const FEATURES = [
-  { icon: '📄', title: 'Resume Builder', desc: 'Build a US resume from scratch — step by step' },
-  { icon: '💼', title: 'Job Portals', desc: 'Indeed, LinkedIn, Handshake, Dice, USAJOBS' },
-  { icon: '🔗', title: 'LinkedIn Coach', desc: 'Headline, summary, networking, outreach' },
-  { icon: '🎯', title: 'Interview Prep', desc: 'Behavioral STAR, technical, mock calls' },
-  { icon: '📞', title: 'Vendor Calls', desc: 'Staffing screens, rates, red flags' },
-  { icon: '⚡', title: 'Skill-Up Plans', desc: 'Learning paths, quizzes, practice tasks' },
-  { icon: '🛂', title: 'Visa Guidance', desc: 'OPT, CPT, H-1B basics (informational)' },
-  { icon: '🔍', title: 'Live Research', desc: 'Web search for salaries and job trends' },
+  { icon: '📄', title: 'Resume Builder', desc: 'Build a US resume from scratch' },
+  { icon: '📎', title: 'File Attachments', desc: 'Upload .txt, .pdf, or .docx resumes' },
+  { icon: '🔗', title: 'LinkedIn Coach', desc: 'Headline, summary, networking' },
+  { icon: '🎯', title: 'Interview Prep', desc: 'STAR method, mock calls' },
+  { icon: '⚡', title: 'Skill-Up Plans', desc: 'Quizzes and practice tasks' },
+  { icon: '🔍', title: 'Live Research', desc: 'Web search for salaries & trends' },
 ];
 
 export const AUDIENCES = [
@@ -40,53 +38,59 @@ export const AUDIENCES = [
   'Career Changers',
 ];
 
-export const TOPIC_CHIPS = {
+export const STARTER_PROMPTS = {
   general: [
-    'I just graduated — how do I start my US job search?',
-    'What are entry-level data analyst salaries in Texas?',
-    'How do I switch careers into IT with no experience?',
-    'I am on OPT — what should I focus on first?',
+    { title: 'Start job search', subtitle: 'New grad roadmap', prompt: 'I just graduated — how do I start my US job search?' },
+    { title: 'Salary research', subtitle: 'Live web search', prompt: 'What are entry-level data analyst salaries in Texas?' },
+    { title: 'Career switch', subtitle: 'Into IT', prompt: 'How do I switch careers into IT with no experience?' },
+    { title: 'OPT guidance', subtitle: 'International students', prompt: 'I am on OPT — what should I focus on first?' },
   ],
   resume: [
-    'Help me build a resume from scratch — I am a new grad',
-    'I have no resume yet — walk me through step by step',
-    'What is ATS and how do I pass it?',
-    'Review my resume — what should I improve?',
+    { title: 'Build from scratch', subtitle: 'No resume yet', prompt: 'Help me build a resume from scratch — I am a new grad' },
+    { title: 'Step-by-step', subtitle: 'Walk me through', prompt: 'I have no resume yet — walk me through creating one step by step' },
+    { title: 'ATS tips', subtitle: 'Pass the scanner', prompt: 'What is ATS and how do I pass it?' },
+    { title: 'Review resume', subtitle: 'Attach or paste', prompt: 'Review my resume — what should I improve?' },
   ],
   portals: [
-    'Which job portals should I use for IT roles?',
-    'How do I set up a strong Indeed profile?',
-    'Best job sites for international students?',
-    'How do I use Handshake as a student?',
+    { title: 'IT job sites', subtitle: 'Where to apply', prompt: 'Which job portals should I use for IT roles?' },
+    { title: 'Indeed profile', subtitle: 'Stand out', prompt: 'How do I set up a strong Indeed profile?' },
+    { title: 'Student sites', subtitle: 'International', prompt: 'Best job sites for international students?' },
+    { title: 'Handshake', subtitle: 'Campus jobs', prompt: 'How do I use Handshake as a student?' },
   ],
   linkedin: [
-    'How do I write a strong LinkedIn headline?',
-    'What should my LinkedIn summary include?',
-    'How do I reach out to recruiters on LinkedIn?',
-    'LinkedIn tips with no US work experience',
+    { title: 'Headline', subtitle: 'First impression', prompt: 'How do I write a strong LinkedIn headline?' },
+    { title: 'Summary', subtitle: 'About section', prompt: 'What should my LinkedIn summary include?' },
+    { title: 'Recruiters', subtitle: 'Outreach tips', prompt: 'How do I reach out to recruiters on LinkedIn?' },
+    { title: 'No US experience', subtitle: 'Still stand out', prompt: 'LinkedIn tips with no US work experience' },
   ],
   interviews: [
-    'How do I answer "Tell me about yourself"?',
-    'Explain the STAR method for behavioral interviews',
-    'Common technical interview questions for junior devs',
-    'How do I prepare for a phone screen?',
+    { title: 'Tell me about yourself', subtitle: 'Opening question', prompt: 'How do I answer "Tell me about yourself"?' },
+    { title: 'STAR method', subtitle: 'Behavioral', prompt: 'Explain the STAR method for behavioral interviews' },
+    { title: 'Technical prep', subtitle: 'Junior devs', prompt: 'Common technical interview questions for junior developers' },
+    { title: 'Phone screen', subtitle: 'First round', prompt: 'How do I prepare for a phone screen?' },
   ],
   vendor: [
-    'What is a vendor call and how do I prepare?',
-    'Red flags to watch for with staffing agencies',
-    'How do I negotiate a contract rate?',
-    'W2 vs C2C — what should I know?',
+    { title: 'Vendor calls', subtitle: 'What to expect', prompt: 'What is a vendor call and how do I prepare?' },
+    { title: 'Red flags', subtitle: 'Staffing agencies', prompt: 'Red flags to watch for with staffing agencies' },
+    { title: 'Rate negotiation', subtitle: 'Contract roles', prompt: 'How do I negotiate a contract rate?' },
+    { title: 'W2 vs C2C', subtitle: 'Know the difference', prompt: 'W2 vs C2C — what should I know as a job seeker?' },
   ],
   visa: [
-    'What is OPT and how does it work for job search?',
-    'Can I work on CPT while studying?',
-    'What should I know about H-1B sponsorship?',
-    'Do I tell employers about my visa status?',
+    { title: 'OPT basics', subtitle: 'Job search', prompt: 'What is OPT and how does it work for job search?' },
+    { title: 'CPT', subtitle: 'While studying', prompt: 'Can I work on CPT while studying?' },
+    { title: 'H-1B', subtitle: 'Sponsorship', prompt: 'What should I know about H-1B sponsorship?' },
+    { title: 'Disclosure', subtitle: 'When to tell employers', prompt: 'Do I tell employers about my visa status?' },
   ],
   skills: [
-    'Give me a 2-week JavaScript skill-up plan with practice tasks',
-    'Quiz me on 5 SQL basics then assign homework',
-    'Skills I need for a business analyst role?',
-    'Create a skill-up plan for Excel with weekly tasks',
+    { title: 'JavaScript plan', subtitle: '2-week skill-up', prompt: 'Give me a 2-week JavaScript skill-up plan with practice tasks' },
+    { title: 'SQL quiz', subtitle: 'Test your skills', prompt: 'Quiz me on 5 SQL basics then assign homework' },
+    { title: 'Business analyst', subtitle: 'Required skills', prompt: 'What skills do I need for a business analyst role?' },
+    { title: 'Excel plan', subtitle: 'Weekly tasks', prompt: 'Create a skill-up plan for Excel with weekly tasks' },
   ],
 };
+
+// Quick prompts for mid-chat popover (first 2 per topic)
+export function getQuickPrompts(topicId) {
+  const prompts = STARTER_PROMPTS[topicId] || STARTER_PROMPTS.general;
+  return prompts.slice(0, 2);
+}

@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
-import ChatbotPage from './pages/ChatbotPage';
+import ChatView from './pages/ChatView';
 import HowItWorksPage from './pages/HowItWorksPage';
 import './styles/global.css';
 import './styles/navbar.css';
@@ -13,7 +13,7 @@ function App() {
       <div className="app-shell">
         <NavBar />
         <Routes>
-          <Route path="/" element={<ChatbotPage />} />
+          <Route path="/" element={<ChatView />} />
           <Route path="/how-it-works" element={<HowItWorksPage />} />
         </Routes>
       </div>

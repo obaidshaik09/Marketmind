@@ -1,21 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
 import Sidebar from '../components/Sidebar';
-import ChatHeader from '../components/ChatHeader';
+import Header from '../components/Header';
 import MessageBubble from '../components/MessageBubble';
 import TypingIndicator from '../components/TypingIndicator';
-import ChipsRow from '../components/ChipsRow';
 import ChatInput from '../components/ChatInput';
-import ApiKeySetup from '../components/ApiKeySetup';
+import KeyGate from '../components/KeyGate';
 import WelcomePanel from '../components/WelcomePanel';
-import { TOPIC_CHIPS } from '../data/topics';
-import { sendChatMessage } from '../services/chatApi';
+import { sendChatMessage } from '../agent/runAgent';
+import { readAttachment } from '../utils/readAttachment';
 
-function ChatbotPage() {
+function ChatView() {
   const [apiKey, setApiKey] = useState(null);
   const [currentTopic, setCurrentTopic] = useState('general');
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [busy, setBusy] = useState(false);
+  const [pendingAttachment, setPendingAttachment] = useState(null);
+  const [attachError, setAttachError] = useState('');
   const scrollRef = useRef(null);
 
   const showWelcome = messages.length === 0;
@@ -25,14 +26,42 @@ function ChatbotPage() {
     if (el) el.scrollTop = el.scrollHeight;
   }, [messages, busy]);
 
+  async function handleAttach(file) {
+    setAttachError('');
+    try {
+      const data = await readAttachment(file);
+      setPendingAttachment(data);
+    } catch (err) {
+      setAttachError(err.message);
+      setPendingAttachment(null);
+    }
+  }
+
   async function handleSend(overrideText) {
     if (busy) return;
     const text = (overrideText ?? inputValue).trim();
-    if (!text) return;
-    setInputValue('');
+    if (!text && !pendingAttachment) return;
 
-    const updatedHistory = [...messages, { role: 'user', content: text }];
+    setInputValue('');
+    setAttachError('');
+
+    let content = text;
+    if (pendingAttachment) {
+      const prefix = text ? `${text}\n\n` : '';
+      content = `${prefix}[Attached: ${pendingAttachment.fileName}]\n${pendingAttachment.text}`;
+    }
+
+    const userMsg = {
+      role: 'user',
+      content,
+      attachment: pendingAttachment
+        ? { fileName: pendingAttachment.fileName, fileType: pendingAttachment.fileType }
+        : null,
+    };
+
+    const updatedHistory = [...messages, userMsg];
     setMessages(updatedHistory);
+    setPendingAttachment(null);
     setBusy(true);
 
     try {
@@ -49,7 +78,7 @@ function ChatbotPage() {
   }
 
   if (!apiKey) {
-    return <ApiKeySetup onKeySubmit={setApiKey} />;
+    return <KeyGate onKeySubmit={setApiKey} />;
   }
 
   return (
@@ -57,31 +86,38 @@ function ChatbotPage() {
       <Sidebar activeTopic={currentTopic} onTopicSelect={setCurrentTopic} />
 
       <div id="main">
-        <ChatHeader />
+        <Header />
 
         <div id="chat-scroll" ref={scrollRef}>
-          {showWelcome && <WelcomePanel />}
+          {showWelcome && (
+            <WelcomePanel topicId={currentTopic} onPromptSelect={handleSend} />
+          )}
           {messages.map((msg, idx) => (
-            <MessageBubble key={idx} role={msg.role} text={msg.content} steps={msg.steps} />
+            <MessageBubble
+              key={idx}
+              role={msg.role}
+              text={msg.content}
+              steps={msg.steps}
+              attachment={msg.attachment}
+            />
           ))}
           {busy && <TypingIndicator />}
         </div>
 
-        <ChipsRow
-          chips={TOPIC_CHIPS[currentTopic] || TOPIC_CHIPS.general}
-          onChipClick={handleSend}
-        />
-
         <ChatInput
           value={inputValue}
           onChange={setInputValue}
-          onSend={() => handleSend()}
+          onSend={handleSend}
           busy={busy}
           currentTopic={currentTopic}
+          attachment={pendingAttachment}
+          onAttach={handleAttach}
+          onRemoveAttachment={() => { setPendingAttachment(null); setAttachError(''); }}
+          attachError={attachError}
         />
       </div>
     </div>
   );
 }
 
-export default ChatbotPage;
+export default ChatView;

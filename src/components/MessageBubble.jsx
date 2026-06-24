@@ -1,7 +1,7 @@
 import { escapeForUserBubble, formatBotMessage } from '../utils/formatMessage';
 import ToolCallBadge from './ToolCallBadge';
 
-function MessageBubble({ role, text, steps }) {
+function MessageBubble({ role, text, steps, attachment }) {
   const isUser = role === 'user';
   const html = isUser ? escapeForUserBubble(text) : formatBotMessage(text);
 
@@ -10,6 +10,11 @@ function MessageBubble({ role, text, steps }) {
       <div className="msg-avatar">{isUser ? '🙂' : '🤖'}</div>
       <div>
         {!isUser && <ToolCallBadge steps={steps} />}
+        {isUser && attachment && (
+          <div className="msg-attachment-badge">
+            📎 {attachment.fileName}
+          </div>
+        )}
         {/* eslint-disable-next-line react/no-danger */}
         <div className="bubble" dangerouslySetInnerHTML={{ __html: html }} />
       </div>

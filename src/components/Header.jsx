@@ -1,13 +1,4 @@
-import { useEffect, useState } from 'react';
-import { isServerAvailable } from '../services/tools';
-
-function ChatHeader() {
-  const [serverOn, setServerOn] = useState(false);
-
-  useEffect(() => {
-    isServerAvailable().then(setServerOn);
-  }, []);
-
+function Header() {
   return (
     <div id="chat-header">
       <div className="header-left">
@@ -16,7 +7,7 @@ function ChatHeader() {
           <div className="agent-name">MarketMind Agent</div>
           <div className="agent-status">
             <span className="status-dot" />
-            {serverOn ? 'Server on · Web Search & Fetch ready' : 'Start server for web search & fetch'}
+            AI Agent · Tools enabled
           </div>
         </div>
       </div>
@@ -29,4 +20,4 @@ function ChatHeader() {
   );
 }
 
-export default ChatHeader;
+export default Header;

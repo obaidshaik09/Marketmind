@@ -262,35 +262,191 @@
 }
 
 #chips-row {
-  padding: 0 24px 12px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  flex-shrink: 0;
+  display: none;
 }
 
-.chip {
-  font-size: 12px;
-  padding: 7px 14px;
-  border-radius: 20px;
-  border: 1px solid rgba(6, 182, 212, 0.3);
-  color: var(--accent);
-  background: rgba(6, 182, 212, 0.06);
+/* Starter prompt cards (welcome screen) */
+.starter-prompts {
+  margin-top: 8px;
+}
+
+.starter-prompts-label {
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+
+.starter-prompts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.starter-card {
+  text-align: left;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 12px;
   cursor: pointer;
-  transition: background 0.14s, color 0.14s, border-color 0.14s;
+  transition: border-color 0.15s, background 0.15s, transform 0.1s;
 }
 
-.chip:hover {
-  background: rgba(6, 182, 212, 0.18);
-  border-color: var(--accent);
-  color: #fff;
+.starter-card:hover {
+  border-color: rgba(6, 182, 212, 0.4);
+  background: rgba(6, 182, 212, 0.06);
+  transform: translateY(-1px);
+}
+
+.starter-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+
+.starter-card-sub {
+  font-size: 11px;
+  color: var(--text-light);
+  line-height: 1.4;
+}
+
+/* Attachments & input extras */
+.attachment-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding: 6px 12px;
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.25);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--accent);
+}
+
+.attachment-chip-remove {
+  background: none;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0 2px;
+}
+
+.attachment-chip-remove:hover { color: #ef4444; }
+
+.attach-error {
+  font-size: 12px;
+  color: #ef4444;
+  margin-bottom: 8px;
+}
+
+.attach-btn,
+.ideas-btn {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: opacity 0.14s, background 0.14s;
+}
+
+.attach-btn:hover,
+.ideas-btn:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.attach-btn:disabled,
+.ideas-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.msg-attachment-badge {
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--accent);
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  border-radius: 8px;
+  padding: 4px 10px;
+  margin-bottom: 6px;
+  width: fit-content;
+}
+
+.suggestions-popover {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 24px;
+  width: min(320px, calc(100% - 48px));
+  background: var(--bg-sidebar);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  z-index: 50;
 }
 
 #input-wrap {
+  position: relative;
   padding: 12px 24px 20px;
   border-top: 1px solid var(--border);
   flex-shrink: 0;
   background: rgba(10, 15, 28, 0.5);
+}
+
+.suggestions-popover-title {
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-light);
+  padding: 4px 8px 8px;
+}
+
+.suggestions-popover-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.14s;
+}
+
+.suggestions-popover-item:hover {
+  background: rgba(6, 182, 212, 0.08);
+}
+
+.suggestions-popover-item strong {
+  display: block;
+  font-size: 13px;
+  color: var(--text-dark);
+  margin-bottom: 2px;
+}
+
+.suggestions-popover-item span {
+  font-size: 11px;
+  color: var(--text-light);
+}
+
+@media (max-width: 720px) {
+  .starter-prompts-grid { grid-template-columns: 1fr; }
 }
 
 .input-row {

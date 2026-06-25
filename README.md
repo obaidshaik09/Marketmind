@@ -1,36 +1,55 @@
 # MarketMind — US Career Coaching Platform
 
-AI career coach with **tool calling**, **web search**, **file attachments**, **resume builder**, and **skill-up tools** — runs entirely in the browser.
+AI career coach with **tool calling**, **RAG knowledge base**, **web search**, **file attachments**, and **skill-up tools**.
 
-## Quick start
+## Quick start (Phase 2 — with RAG)
 
+### Terminal 1 — RAG API (.NET 10)
+```bash
+cd MarketMind.Rag
+cp appsettings.Development.example.json appsettings.Development.json
+# Edit appsettings.Development.json — Postgres password + OpenRouter key
+dotnet run
+```
+Runs on **http://localhost:5001** and auto-creates `marketmind_rag` database.
+
+### Terminal 2 — React app
 ```bash
 cd marketmind-react
 npm install
 cp .env.example .env
-# Add REACT_APP_SERPAPI_API_KEY (free at serpapi.com) for web search
 npm start
 ```
 
-Paste your **Anthropic API key** when the app opens. The key stays in memory for your session only.
+Paste your **Anthropic API key** when the app opens.
 
-## Browser-only architecture
+## Architecture
 
-| What | How |
-|------|-----|
-| Anthropic API | Paste key in app each session |
-| Web search | `REACT_APP_SERPAPI_API_KEY` in root `.env` |
-| Web fetch | Direct browser fetch (some job URLs blocked by CORS) |
-| Resume files | Attach `.txt`, `.pdf`, or `.docx` in chat |
-| Tools | `src/agent/` runs client-side |
+| Component | Purpose |
+|-----------|---------|
+| React app (`:3000`) | Chat agent + Knowledge Base upload UI |
+| MarketMind.Rag (`:5001`) | Ingest docs, embed via OpenRouter, search PostgreSQL |
+| PostgreSQL + pgvector | Stores document chunks and embeddings |
+| Anthropic API | Chat LLM (pasted each session) |
+| OpenRouter | Embeddings (`text-embedding-3-small`) |
+| SerpAPI | Live web search (optional, in React `.env`) |
 
-No backend server is required for the professor demo. The `server/` folder is kept for a future class topic.
+## Knowledge Base (RAG)
+
+1. Open **Knowledge Base** in the nav bar
+2. Upload `.txt`, `.md`, `.pdf`, or `.docx` IT/career docs
+3. API chunks text, embeds via OpenRouter, stores in PostgreSQL
+4. Agent tool `get_relevant_information` searches with **≥50% similarity**
+5. If no match → agent falls back to `web_search`
+
+Sample file: `MarketMind.Rag/sample-data/sql-interview-guide.md`
 
 ## Tools
 
 | Tool | What it does |
 |------|-------------|
-| `web_search` | Live salaries, job trends (needs SerpAPI key in `.env`) |
+| `get_relevant_information` | Search internal knowledge base (RAG API) |
+| `web_search` | Live salaries, job trends (SerpAPI) |
 | `fetch_url` | Read public URLs (CORS may block some sites) |
 | `build_resume` | Build US resume from scratch |
 | `analyze_resume` | ATS review of pasted or attached resume |
@@ -38,14 +57,15 @@ No backend server is required for the professor demo. The `server/` folder is ke
 | `skill_up` | Learning plans + hands-on tasks |
 | `calculator` | Salary math |
 
-## Demo prompts
+## Demo script
 
-1. Attach a `.docx` resume → *"Review this and suggest improvements"*
-2. *"What are entry-level data analyst salaries in Texas?"* (web search)
-3. *"Help me build a resume from scratch — CS new grad"* (build_resume)
-4. *"Quiz me on 5 SQL basics"* (skill_quiz)
+1. Upload SQL guide on Knowledge Base page
+2. Chat: *"What are SQL JOIN types for interviews?"* → RAG tool
+3. Chat: *"What are data analyst salaries in Texas?"* → web_search
+4. Attach resume → *"Review this resume"*
 
 ## Notes
 
-- Restart `npm start` after changing `.env`
-- `REACT_APP_*` keys are visible in the built JS bundle — use a free-tier SerpAPI key for class demos
+- RAG secrets go in `MarketMind.Rag/appsettings.Development.json` (gitignored)
+- Restart `npm start` after changing React `.env`
+- Old Node `server/` folder is unused; RAG uses .NET 10 API

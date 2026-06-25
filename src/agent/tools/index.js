@@ -1,5 +1,6 @@
 import * as webSearch from './webSearch';
 import * as webFetch from './webFetch';
+import * as getRelevantInformation from './getRelevantInformation';
 import * as calculator from './calculator';
 import * as buildResume from './buildResume';
 import * as analyzeResume from './analyzeResume';
@@ -7,6 +8,7 @@ import * as skillQuiz from './skillQuiz';
 import * as skillUp from './skillUp';
 
 const TOOLS = [
+  getRelevantInformation,
   webSearch,
   webFetch,
   calculator,
@@ -32,4 +34,8 @@ export async function runTool(name, input) {
 
 export function isWebSearchConfigured() {
   return webSearch.isConfigured();
+}
+
+export function isRagConfigured() {
+  return getRelevantInformation.isRagConfigured();
 }

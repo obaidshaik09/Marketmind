@@ -1,0 +1,170 @@
+#knowledge-base-page {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--bg-page);
+  padding: 40px 32px 64px;
+}
+
+.kb-container {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.kb-header {
+  margin-bottom: 28px;
+}
+
+.kb-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.kb-header h1 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+
+.kb-header p {
+  font-size: 14px;
+  color: var(--text-mid);
+  line-height: 1.65;
+  max-width: 600px;
+}
+
+.kb-api-status {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+.kb-api-online {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.kb-api-offline {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.kb-api-checking {
+  color: var(--text-light);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+}
+
+.kb-upload-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 28px;
+}
+
+.kb-upload-card h3 {
+  font-size: 16px;
+  color: var(--text-dark);
+  margin-bottom: 6px;
+}
+
+.kb-upload-hint {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-bottom: 16px;
+}
+
+.kb-label {
+  display: block;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-light);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.kb-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 14px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-dark);
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.kb-upload-row input[type="file"] {
+  font-size: 13px;
+  color: var(--text-mid);
+}
+
+.kb-status { font-size: 13px; color: var(--accent); margin-top: 10px; }
+.kb-error { font-size: 13px; color: #ef4444; margin-top: 10px; }
+.kb-success { font-size: 13px; color: #10b981; margin-top: 10px; }
+
+.kb-docs-section h2 {
+  font-size: 18px;
+  color: var(--text-dark);
+  margin-bottom: 14px;
+}
+
+.kb-empty {
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+.kb-doc-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.kb-doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.kb-doc-table th,
+.kb-doc-table td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.kb-doc-table th {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-light);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.kb-doc-table td { color: var(--text-mid); }
+
+.kb-delete-btn {
+  background: none;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #ef4444;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.kb-delete-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+}

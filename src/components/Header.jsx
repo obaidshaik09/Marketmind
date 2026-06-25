@@ -12,8 +12,7 @@ function Header() {
         </div>
       </div>
       <div className="header-tools">
-        <span className="tool-pill">build_resume</span>
-        <span className="tool-pill">skill_up</span>
+        <span className="tool-pill">get_relevant_information</span>
         <span className="tool-pill">web_search</span>
       </div>
     </div>
